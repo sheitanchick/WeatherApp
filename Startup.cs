@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Weather.Configuration;
+using Weather.Configuration.Extensions;
 using Weather.EntityFramework;
 
 namespace Weather
@@ -20,6 +22,10 @@ namespace Weather
         {
             services
                 .AddDbContext<WeatherDbContext>(Configuration)
+                .AddWeatherbit()
+                .AddOpenWeather()
+                .Configure<WeatherbitOptions>(options => Configuration.GetSection("Weatherbit").Bind(options))
+                .Configure<OpenWeatherOptions>(options => Configuration.GetSection("OpenWeather").Bind(options))
                 .AddControllers();
         }
 

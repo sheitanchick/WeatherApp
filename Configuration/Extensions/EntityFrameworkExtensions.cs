@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace Weather
+namespace Weather.Configuration.Extensions
 {
     public static class EntityFrameworkExtensions
     {
