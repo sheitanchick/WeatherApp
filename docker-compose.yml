@@ -4,6 +4,9 @@ services:
     build: .
     ports:
       - 5000:80
+    links:
+      - db
+
   db:
     image: "postgres"
     environment: 

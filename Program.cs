@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Weather.EntityFramework;
 
 namespace Weather
 {
@@ -7,7 +9,10 @@ namespace Weather
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args)
+                .Build()
+                .MigrateDatabase<WeatherDbContext>()
+                .Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -15,6 +20,7 @@ namespace Weather
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
+                        .ConfigureAppConfiguration((context, builder) => builder.AddEnvironmentVariables())
                         .UseStartup<Startup>();
                 });
     }
