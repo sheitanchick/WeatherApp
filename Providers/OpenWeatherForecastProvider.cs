@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Weather.DTO;
@@ -27,7 +27,11 @@ namespace Weather.Providers
             
             var response = await _httpClient.GetAsync(pathAndQuery, ct);
 
-            return new WeatherDto() { CityName = "open" };
+            var content = await response.Content.ReadAsStringAsync();
+
+            var data = JsonSerializer.Deserialize<OpenWeatherResponseDto>(content);
+
+            return data.ToWeatherDto(Type);
         }
     }
 }

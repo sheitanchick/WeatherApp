@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.WebUtilities;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Weather.DTO;
@@ -26,10 +27,9 @@ namespace Weather.Providers
 
             var content = await response.Content.ReadAsStringAsync();
 
-            var dto = System.Text.Json.JsonSerializer.Deserialize<WeatherbitResponseDto>(content);
-            var data = dto.data[0];
+            var dto = JsonSerializer.Deserialize<WeatherbitResponseDto>(content);
 
-            return new WeatherDto() { CityName = "bit" };
+            return dto.ToWeatherDto(Type);
         }
     }
 }

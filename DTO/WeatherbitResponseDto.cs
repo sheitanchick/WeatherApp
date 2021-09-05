@@ -1,11 +1,34 @@
-﻿using System;
-
-namespace Weather.DTO
+﻿namespace Weather.DTO
 {
     public class WeatherbitResponseDto
     {
-        public WeatherbitDto[] data { get; set; }
+        public WeatherbitDto[] data { get; set; } = new WeatherbitDto[0]; 
         public int count { get; set; }
+
+        public WeatherDto ToWeatherDto(string provider)
+        {
+            if (data == null || data.Length == 0)
+                return null;
+
+            var dto = data[0];
+
+            return new WeatherDto
+            {
+                Provider = provider,
+                Latitude = dto.lat,
+                Longitude = dto.lon,
+                Description = dto.weather?.description,
+                Temperature = dto.temp,
+                TemperatureFeelsLike = dto.app_temp,
+                Pressure = dto.pres,
+                Humidity = dto.rh,
+                WindSpeed = dto.wind_spd,
+                WindDirection = dto.wind_dir,
+                Cloudiness = dto.clouds,
+                CountryCode = dto.country_code,
+                CityName = dto.city_name
+            };
+        }
     }
 
     public class WeatherbitDto
