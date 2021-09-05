@@ -1,5 +1,5 @@
 # WeatherApp
-This application is capable to fetch basic forecast info from two sources.
+This application is capable to fetch basic forecast info for provided location (latitude and longitude) from two sources.
 These are: https://openweathermap.org/ and https://www.weatherbit.io/
 
 To run appplication you supposed to add ApiKeys for both OpenWeather and Weatherbit providers.
