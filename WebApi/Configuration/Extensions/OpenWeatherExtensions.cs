@@ -20,7 +20,7 @@ namespace Weather.Configuration.Extensions
                 {
                     var config = services.GetRequiredService<IOptions<OpenWeatherOptions>>().Value;
 
-                    client.BaseAddress = config.BaseUrl = config.BaseUrl;
+                    client.BaseAddress = config.BaseUrl;
 
                 })
                 .AddHttpMessageHandler<OpenWeatherDelegatingHandler>();
@@ -38,7 +38,7 @@ namespace Weather.Configuration.Extensions
             _config = openWeatherOptions.Value;
         }
 
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var uriBuilder = new UriBuilder(request.RequestUri);
 
@@ -50,11 +50,7 @@ namespace Weather.Configuration.Extensions
 
             request.RequestUri = uriBuilder.Uri;
 
-            var response = await base.SendAsync(request, cancellationToken);
-
-            response.EnsureSuccessStatusCode();
-
-            return response;
+            return base.SendAsync(request, cancellationToken);
         }
     }
 }

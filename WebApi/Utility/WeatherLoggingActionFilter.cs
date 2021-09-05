@@ -36,23 +36,23 @@ namespace Weather.Utility
 
             if (TryExtractWeatherResponse(result.Result, out WeatherResponse<WeatherDto> response))
             {
-                var weather = response.Weather;
+                var weather = response.Data;
 
                 if (weather != null)
                 {
                     log.Data = new WeatherLogData
                     {
                         Provider = weather.Provider,
-                        Latitude = weather.Latitude.GetValueOrDefault(),
-                        Longitude = weather.Longitude.GetValueOrDefault(),
+                        Latitude = weather.Latitude,
+                        Longitude = weather.Longitude,
                         Description = weather.Description,
-                        Temperature = weather.Temperature.GetValueOrDefault(),
-                        TemperatureFeelsLike = weather.TemperatureFeelsLike.GetValueOrDefault(),
-                        Pressure = weather.Pressure.GetValueOrDefault(),
-                        Humidity = weather.Humidity.GetValueOrDefault(),
-                        WindSpeed = weather.WindSpeed.GetValueOrDefault(),
-                        WindDirection = weather.WindDirection.GetValueOrDefault(),
-                        Cloudiness = weather.Cloudiness.GetValueOrDefault(),
+                        Temperature = weather.Temperature,
+                        TemperatureFeelsLike = weather.TemperatureFeelsLike,
+                        Pressure = weather.Pressure,
+                        Humidity = weather.Humidity,
+                        WindSpeed = weather.WindSpeed,
+                        WindDirection = weather.WindDirection,
+                        Cloudiness = weather.Cloudiness,
                         CountryCode = weather.CountryCode,
                         CityName = weather.CityName
                     };

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Weather.DTO;
@@ -21,7 +22,7 @@ namespace Weather.Controllers
 
         [HttpGet]
         [TypeFilter(typeof(WeatherLoggingActionFilter))]
-        public async Task<WeatherResponse<WeatherDto>> Index(float lat, float lon)
+        public async Task<WeatherResponse<WeatherDto>> Index([Range(-90, 90)] float lat, [Range(-180, 180)] float lon)
         {
             var parameters = new Dictionary<string, string>
             {
@@ -37,8 +38,8 @@ namespace Weather.Controllers
 
             var response = new WeatherResponse<WeatherDto>
             {
-                Success = weather.IsCompletedSuccessfully,
-                Weather = weather.IsCompletedSuccessfully ? await weather : null
+                Success = true,
+                Data = await weather
             };
 
             return response;

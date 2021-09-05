@@ -8,30 +8,30 @@ using Weather.DTO;
 
 namespace Weather.Providers
 {
-    public class OpenWeatherForecastProvider : IForecastProvider
+    public class WeatherbitForecastProvider : IForecastProvider
     {
         private readonly HttpClient _httpClient;
 
-        public OpenWeatherForecastProvider(HttpClient httpClient)
+        public WeatherbitForecastProvider(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public string Type => nameof(OpenWeatherForecastProvider);
+        public string Type => nameof(WeatherbitForecastProvider);
 
         public async Task<WeatherDto> GetWeatherForecast(IDictionary<string, string> parameters, CancellationToken ct = default)
         {
-            parameters.TryAdd("units", "metric");
+            var pathAndQuery = QueryHelpers.AddQueryString("current", parameters);
 
-            var pathAndQuery = QueryHelpers.AddQueryString("weather", parameters);
-            
             var response = await _httpClient.GetAsync(pathAndQuery, ct);
+
+            response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
 
-            var data = JsonSerializer.Deserialize<OpenWeatherResponseDto>(content);
+            var dto = JsonSerializer.Deserialize<WeatherbitResponseDto>(content);
 
-            return data.ToWeatherDto(Type);
+            return dto.ToWeatherDto(Type);
         }
     }
 }

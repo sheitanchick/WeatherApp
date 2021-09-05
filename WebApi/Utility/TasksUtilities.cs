@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Weather.Utility
@@ -14,7 +15,7 @@ namespace Weather.Utility
                 tasks = tasks.Except(new[] { first }).ToArray();
 
                 if (!tasks.Any())
-                    throw new System.InvalidOperationException("All providers have failed to execute requests!");
+                    throw new InvalidOperationException("All providers have failed to execute requests!");
 
                 first = await Task.WhenAny(tasks);
             }

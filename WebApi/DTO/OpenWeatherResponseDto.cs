@@ -18,17 +18,17 @@ namespace Weather.DTO
             return new WeatherDto
             {
                 Provider = provider,
-                Latitude = coord?.lat,
-                Longitude = coord?.lon,
+                Latitude = coord.lat,
+                Longitude = coord.lon,
                 Description = weather.FirstOrDefault()?.description,
-                Temperature = main?.temp,
-                TemperatureFeelsLike = main?.feels_like,
-                Pressure = main?.pressure,
-                Humidity = main?.humidity,
-                WindSpeed = wind?.speed,
-                WindDirection = wind?.deg,
-                Cloudiness = clouds?.all,
-                CountryCode = sys?.country,
+                Temperature = main.temp,
+                TemperatureFeelsLike = main.feels_like,
+                Pressure = main.pressure,
+                Humidity = main.humidity,
+                WindSpeed = wind.speed,
+                WindDirection = wind.deg,
+                Cloudiness = clouds.all,
+                CountryCode = sys.country,
                 CityName = name
             };
         }

@@ -44,7 +44,7 @@ namespace Weather
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseSwagger()
                 .UseSwaggerUI(c =>
                 {

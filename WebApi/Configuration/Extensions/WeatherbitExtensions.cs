@@ -38,7 +38,7 @@ namespace Weather.Configuration.Extensions
             _config = weatherbitOptions.Value;
         }
 
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var uriBuilder = new UriBuilder(request.RequestUri);
 
@@ -50,11 +50,7 @@ namespace Weather.Configuration.Extensions
 
             request.RequestUri = uriBuilder.Uri;
 
-            var response = await base.SendAsync(request, cancellationToken);
-
-            response.EnsureSuccessStatusCode();
-
-            return response;
+            return base.SendAsync(request, cancellationToken);
         }
     }
 }

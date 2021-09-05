@@ -1,4 +1,6 @@
-﻿namespace Weather.DTO
+﻿using System;
+
+namespace Weather.DTO
 {
     public class WeatherbitResponseDto
     {
@@ -8,7 +10,7 @@
         public WeatherDto ToWeatherDto(string provider)
         {
             if (data == null || data.Length == 0)
-                return null;
+                throw new InvalidOperationException("The data was null or empty!");
 
             var dto = data[0];
 
